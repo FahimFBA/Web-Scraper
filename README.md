@@ -7,4 +7,4 @@
 
 # Used languages & framework:
 
-[nodejs](https://badges.aleen42.com/src/node.svg)
+![nodejs](https://badges.aleen42.com/src/node.svg)
