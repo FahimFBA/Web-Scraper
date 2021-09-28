@@ -25,9 +25,29 @@ According to [Wikipedia](https://en.wikipedia.org/wiki/Web_scraping), " Web scra
 
 # Run the scrapper
 
+- Clone the repository
+    - Using SSH 
+
+      ```
+      git clone git@github.com:FahimFBA/Web-Scraper.git
+      ```
+    - Using HTTPS
+
+      ```
+      git clone https://github.com/FahimFBA/Web-Scraper.git
+      ```
+- Go to the Web-Scraper directory
+
+```
+cd Web-Scraper
+```
+
+- Run the project using the following command
+
 ```
 npm run start
 ```
+
 By default, it would scrap from The Guardian as I used [The Guardian](https://www.theguardian.com/international) to experiment with the web scrapper.
 
 To experiment on different websites, change the url in the index.js and customize the class in the axios as well.
