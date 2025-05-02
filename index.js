@@ -11,7 +11,7 @@ axios(url)
         const $ = cheerio.load(html)
         const articles = []
 
-        $('.fc-item__title', html).each(function(){
+        $('.dcr-5rptw1', html).each(function () {
             const title = $(this).text()
             const url = $(this).find('a').attr('href')
             articles.push({
