@@ -1,25 +1,33 @@
 {
-  "name": "simple-web-scraper",
+  "name": "scrapelite-guardian",
   "version": "1.0.0",
-  "description": "",
+  "description": "A lightweight Node.js scraper for Guardian International article links.",
   "main": "index.js",
+  "engines": {
+    "node": ">=20.18.1"
+  },
   "scripts": {
     "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FahimFBA/Web-Scraper.git"
+    "url": "git+https://github.com/FahimFBA/scrapelite-guardian.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/FahimFBA/Web-Scraper/issues"
+    "url": "https://github.com/FahimFBA/scrapelite-guardian/issues"
   },
-  "homepage": "https://github.com/FahimFBA/Web-Scraper#readme",
+  "homepage": "https://github.com/FahimFBA/scrapelite-guardian#readme",
   "dependencies": {
-    "axios": "^0.30.2",
-    "cheerio": "^1.0.0-rc.10",
-    "express": "^4.22.0",
-    "nodemon": "^3.1.10"
+    "axios": "^1.17.0",
+    "cheerio": "^1.2.0",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "overrides": {
+    "picomatch": "2.3.2"
   }
 }

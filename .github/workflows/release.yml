@@ -1,0 +1,74 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - CHANGELOG.md
+      - package.json
+      - package-lock.json
+      - scripts/extract-latest-changelog.js
+      - .github/workflows/release.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Publish changelog release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Audit dependencies
+        run: npm audit
+
+      - name: Extract latest changelog entry
+        id: changelog
+        run: node scripts/extract-latest-changelog.js
+
+      - name: Verify package version
+        env:
+          CHANGELOG_VERSION: ${{ steps.changelog.outputs.version }}
+        run: |
+          node -e 'const pkg = require("./package.json"); if (pkg.version !== process.env.CHANGELOG_VERSION) { throw new Error("package.json version " + pkg.version + " does not match CHANGELOG.md version " + process.env.CHANGELOG_VERSION); }'
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.changelog.outputs.tag }}
+          RELEASE_BODY: ${{ steps.changelog.outputs.body }}
+        run: |
+          if git rev-parse "$RELEASE_TAG" >/dev/null 2>&1; then
+            echo "Release tag $RELEASE_TAG already exists. Skipping release."
+            exit 0
+          fi
+
+          git tag "$RELEASE_TAG"
+          git push origin "$RELEASE_TAG"
+
+          notes_file="$(mktemp)"
+          printf '%s\n' "$RELEASE_BODY" > "$notes_file"
+
+          gh release create "$RELEASE_TAG" \
+            --title "$RELEASE_TAG" \
+            --notes-file "$notes_file"

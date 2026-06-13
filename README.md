@@ -1,46 +1,57 @@
-# Web Scraper
+# ScrapeLite Guardian
 
-A simple Node.js application to scrape article titles and URLs from The Guardian's international news section.
+ScrapeLite Guardian is a lightweight Node.js scraper for collecting article titles and links from The Guardian's international news page.
 
-## Description
+## Features
 
-This project uses `axios` to fetch the HTML content from `https://www.theguardian.com/international` and `cheerio` to parse the HTML and extract relevant article information (specifically, titles and URLs based on the CSS selector `.dcr-5rptw1`).
+- Fetches Guardian International HTML with `axios`.
+- Parses article data with `cheerio`.
+- Starts a small Express server on port `8000`.
+- Uses `nodemon` for local development reloads.
 
-Currently, the scraped data is logged to the console when the application starts. An Express server is initialized on port 8000 but does not yet serve any data or provide API endpoints.
+## Requirements
 
-## Prerequisites
-
-- Node.js and npm (or yarn) installed on your system.
+- Node.js `20.18.1` or newer
+- npm
 
 ## Installation
 
-1.  Clone the repository:
-    ```bash
-    git clone https://github.com/FahimFBA/Web-Scraper.git
-    cd Web-Scraper
-    ```
-2.  Install the dependencies:
-    ```bash
-    npm install
-    ```
-    or
-    ```bash
-    yarn install
-    ```
+```bash
+git clone https://github.com/FahimFBA/scrapelite-guardian.git
+cd scrapelite-guardian
+npm install
+```
 
 ## Usage
-
-To run the scraper, use the following command:
 
 ```bash
 npm start
 ```
 
-This will start the application using `nodemon`, which automatically restarts the server on file changes. The scraped article titles and URLs will be printed to your terminal console.
+The scraper runs when the app starts and prints the collected articles to the terminal.
 
-## Future Enhancements (Potential)
+## Release Process
 
-- Implement API endpoints using Express to serve the scraped data.
-- Add error handling for network requests and parsing.
-- Make the target URL and CSS selectors configurable.
-- Store the scraped data in a database or file.
+Releases are driven by `CHANGELOG.md`.
+
+1. Update `package.json` with the new version.
+2. Add a new topmost version section to `CHANGELOG.md`.
+3. Push the changes to `main`.
+
+The GitHub Action reads the newest changelog version, verifies it matches `package.json`, creates the matching `vX.Y.Z` tag, and publishes a GitHub release using that changelog section as the release notes.
+
+## Project Structure
+
+```text
+.
+|-- .github/workflows/release.yml
+|-- scripts/extract-latest-changelog.js
+|-- CHANGELOG.md
+|-- index.js
+|-- package.json
+`-- package-lock.json
+```
+
+## Notes
+
+The Guardian changes its frontend markup over time. If the scraper starts returning no articles, update the selector in `index.js`.
