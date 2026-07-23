@@ -1,6 +1,6 @@
 {
   "name": "scrapelite-guardian",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A lightweight Node.js scraper for Guardian International article links.",
   "main": "index.js",
   "engines": {
@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/FahimFBA/scrapelite-guardian#readme",
   "dependencies": {
-    "axios": "^1.17.0",
+    "axios": "^1.18.0",
     "cheerio": "^1.2.0",
     "express": "^5.2.1"
   },
